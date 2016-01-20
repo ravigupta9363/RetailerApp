@@ -6,5 +6,6 @@ package com.example.ravi_gupta.retailerapp;
 public class Constants {
 
     public static final String OPEN_ORDER_DETAILS = "OrderDetailsAdapterSendOrderDetails";
+    public static String apiUrl = "";
 
 }

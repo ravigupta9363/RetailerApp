@@ -1,87 +1,124 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.ravi_gupta.retailerapp.MedicineListFragment"
     android:background="#FFF">
 
-    <!-- TODO: Update blank fragment layout -->
-    <android.support.v7.widget.Toolbar
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/toolbar"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        android:layout_height="match_parent">
 
-        <ImageButton
-            android:padding="10dp"
-            android:id="@+id/fragmentOrderListItemImageButton1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"
-            android:background="#00FFFFFF"
-            />
-        <!-- </RelativeLayout>-->
-
-        <TextView
-            android:padding="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/fragmentOrderListItemTextView1"
-            android:textSize="20sp"
-            android:textColor="#FFF"
-            android:text="Medicines"/>
-
-        <LinearLayout
+        <ExpandableListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="right"
-            android:layout_marginRight="5dp">
+            android:groupIndicator="@null"
+            android:id="@+id/fragment_medicine_list_expandable_listview"
+            android:layout_above="@+id/fragment_medicine_list_button1"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <TextView
-                android:id="@+id/fragmentOrderListItemTextView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:textColor="#FFF"
-                android:text="Dr. Alpa Garg"/>
+        </ExpandableListView>
 
-            <TextView
-                android:id="@+id/fragmentOrderListItemTextView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:textColor="#FFF"
-                android:text="U 22, DLF PHASE 3"/>
 
-        </LinearLayout>
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="256dp"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-    </android.support.v7.widget.Toolbar>
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-    <ExpandableListView
-        android:layout_below="@id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:groupIndicator="@null"
-        android:id="@+id/fragment_medicine_list_expandable_listview"
-        android:layout_above="@+id/fragment_medicine_list_button1">
 
-    </ExpandableListView>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/fragment_medicine_list_imageview"
+                    app:layout_collapseMode="parallax"
+                    android:scaleType="centerCrop"
+                    android:background="#919CDE"
+                    android:src="@drawable/default_image">
+                </ImageView>
+
+
+                <!-- TODO: Update blank fragment layout -->
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@android:color/transparent"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:layout_collapseMode="pin">
+
+                    <ImageButton
+                        android:padding="10dp"
+                        android:id="@+id/fragmentOrderListItemImageButton1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+                        android:background="#00FFFFFF"
+                        />
+                    <!-- </RelativeLayout>-->
+
+                    <TextView
+                        android:padding="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fragmentOrderListItemTextView1"
+                        android:textSize="20sp"
+                        android:textColor="#FFF"
+                        android:text="Medicines"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="right"
+                        android:layout_marginRight="5dp">
+
+                        <TextView
+                            android:id="@+id/fragmentOrderListItemTextView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:textColor="#FFF"
+                            android:text="Dr. Alpa Garg"/>
+
+                        <TextView
+                            android:id="@+id/fragmentOrderListItemTextView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:textColor="#FFF"
+                            android:text="U 22, DLF PHASE 3"/>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.Toolbar>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:text="Confirm"
-        android:background="#EEE"
+        android:background="@color/googleRed"
+        android:textColor="@color/white"
         android:id="@+id/fragment_medicine_list_button1"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"/>
+        android:layout_alignParentBottom="true" />
+
 
 </RelativeLayout>
+

@@ -3,21 +3,28 @@ package com.example.ravi_gupta.retailerapp;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
+import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 /**
@@ -32,17 +39,16 @@ public class MedicineListFragment extends android.support.v4.app.Fragment implem
 
     public static String TAG = "MedicineListFragment";
     Context context;
-    ExpandableListView mExpandableListView;
-
-    private TextView toolbarTitleView;
-    private ImageButton toolbarBackButton;
-    private TextView toolbarDoctorName;
-    private TextView toolbarDoctorAddress;
+    @Bind(R.id.fragmentOrderListItemTextView1) TextView toolbarTitleView;
+    @Bind(R.id.fragmentOrderListItemTextView2) TextView toolbarDoctorName;
+    @Bind(R.id.fragmentOrderListItemTextView3) TextView toolbarDoctorAddress;
+    @Bind(R.id.fragment_medicine_list_expandable_listview) ExpandableListView mExpandableListView;
     MainActivity mainActivity;
-    MedicineListAdapter mListAdapter;
-    ArrayList<MedicineListHeaderDetails> listDataHeader;
-    MedicineListHeaderDetails medicineListHeaderDetails2;
-
+    MedicineListDrugAdapter medicineListDrugAdapter;
+    ArrayList<MedicineListModel> medicineListModelArrayList = new ArrayList<MedicineListModel>();
+    ArrayList<String> saltStringArrayList = new ArrayList<String>();
+    @Bind(R.id.fragment_medicine_list_imageview) ImageView imageView;
+    ImageLoader imageLoader;
     private OnFragmentInteractionListener mListener;
 
     public static MedicineListFragment newInstance() {
@@ -59,6 +65,10 @@ public class MedicineListFragment extends android.support.v4.app.Fragment implem
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this.getActivity().getBaseContext();
+        imageLoader = ImageLoader.getInstance();
+        this.imageLoader.init(ImageLoaderConfiguration.createDefault(getContext()));
+        EventBus.getDefault().register(this);
+        EventBus.getDefault().registerSticky(this);
     }
 
     @Override
@@ -66,107 +76,57 @@ public class MedicineListFragment extends android.support.v4.app.Fragment implem
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View rootview = inflater.inflate(R.layout.fragment_medicine_list, container, false);
-        String patientName = this.getArguments().getString("patientName");
-        String doctorName = this.getArguments().getString("doctorName");
-        String doctorAddress = this.getArguments().getString("doctorAddress");
-        final String orderNumber = this.getArguments().getString("orderNumber");
-        String updatedPrice = this.getArguments().getString("price");
-
-        Log.v("signin",updatedPrice+"121");
-        toolbarBackButton = (ImageButton)rootview.findViewById(R.id.fragmentOrderListItemImageButton1);
-        toolbarTitleView = (TextView) rootview.findViewById(R.id.fragmentOrderListItemTextView1);
-        toolbarDoctorName = (TextView) rootview.findViewById(R.id.fragmentOrderListItemTextView2);
-        toolbarDoctorAddress = (TextView) rootview.findViewById(R.id.fragmentOrderListItemTextView3);
-        Button confirmButton = (Button) rootview.findViewById(R.id.fragment_medicine_list_button1);
-
-        Typeface typeFace = Typeface.createFromAsset(getActivity().getAssets(), "fonts/gothic.ttf");
-        confirmButton.setTypeface(typeFace);
-        toolbarTitleView.setTypeface(typeFace);
-        toolbarDoctorName.setTypeface(typeFace);
-        toolbarDoctorAddress.setTypeface(typeFace);
-        
-        toolbarTitleView.setText(patientName);
-        toolbarDoctorName.setText("Dr. " + doctorName);
-        toolbarDoctorAddress.setText(doctorAddress);
-
-        confirmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainActivity.replaceFragment(R.id.fragment_medicine_list_button1,orderNumber);
-
-            }
-        });
-
-        toolbarBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                int count = getFragmentManager().getBackStackEntryCount();
-                onBackPressed();
-            }
-        });
-
-        // get the listview
-        mExpandableListView = (ExpandableListView) rootview.findViewById(R.id.fragment_medicine_list_expandable_listview);
-
-        //Defining ArrayList for Group and Child List
-        listDataHeader = new ArrayList<MedicineListHeaderDetails>();
-
-        ArrayList<MedicineListChildDetails> medicineListChildDetailses1 = new ArrayList<MedicineListChildDetails>();
-        final ArrayList<MedicineListChildDetails> medicineListChildDetailses2 = new ArrayList<MedicineListChildDetails>();
-        ArrayList<MedicineListChildDetails> medicineListChildDetailses3 = new ArrayList<MedicineListChildDetails>();
-        //ArrayList<MedicineListChildDetails> medicineListChildDetailses4 = new ArrayList<MedicineListChildDetails>();
-
-
-        //Assigning data to Child List
-        medicineListChildDetailses1.add(new MedicineListChildDetails("Paracetamol","250 mg"));
-        medicineListChildDetailses1.add(new MedicineListChildDetails("Citrizine","500 mg"));
-        medicineListChildDetailses1.add(new MedicineListChildDetails("Pseudoephedrine","350 mg"));
-        medicineListChildDetailses1.add(new MedicineListChildDetails("Omeprazole","200 mg"));
-        medicineListChildDetailses2.add(new MedicineListChildDetails("Azithromycin","100 mg"));
-        medicineListChildDetailses2.add(new MedicineListChildDetails("Paracetamol","500 mg"));
-        medicineListChildDetailses3.add(new MedicineListChildDetails("Ranidom",12.23,"Abott Healthcare"));
-        medicineListChildDetailses3.add(new MedicineListChildDetails("Omez",5.23,"Dr Reddy"));
-        medicineListChildDetailses3.add(new MedicineListChildDetails("Nor Metrozyl",1.32,"Mankind"));
-        //medicineListChildDetailses4.add(new MedicineListChildDetails());
-        //medicineListChildDetailses4.add(new MedicineListChildDetails("Nor Metrozyl",1.32,"Mankind"));
-
-
-        //Assigning data to Group List
-        listDataHeader.add(new MedicineListHeaderDetails(getResources().getDrawable(R.drawable.prescription)));
-        listDataHeader.add(new MedicineListHeaderDetails("Crocin", "0","350mg", 5, "Tablets", "Piramal",medicineListChildDetailses1));
-        listDataHeader.add(new MedicineListHeaderDetails("Acolate", "0","100mg", 10, "Tablets", "Gujarat Terce Laboratories Ltd", medicineListChildDetailses2));
-        listDataHeader.add(new MedicineListHeaderDetails("Paracetamol","350mg",10,"Tablets",medicineListChildDetailses3));
-
-
-
-
-        mListAdapter = new MedicineListAdapter(getActivity(), listDataHeader);
-        //Child Click Listener
-        mExpandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                // Handle clicks on the children here...
-
-                Log.v("signup", "Child");
-                if (1 == mListAdapter.getChildType(groupPosition, childPosition)) {
-                    listDataHeader.remove(groupPosition);
-                    listDataHeader.add(new MedicineListHeaderDetails("Omez", "0","100mg", 10, "Syrup", "Abott Healthcare", medicineListChildDetailses2));
-                    mListAdapter.notifyDataSetChanged();
-                }
-                return false;
-            }
-        });
-
-
-        // setting list adapter
-        mExpandableListView.setAdapter(mListAdapter);
-
+        ButterKnife.bind(this, rootview);
+        medicineListDrugAdapter = new MedicineListDrugAdapter(mainActivity, medicineListModelArrayList);
+        mExpandableListView.setAdapter(medicineListDrugAdapter);
         return rootview;
+    }
+
+    @OnClick(R.id.fragment_medicine_list_button1) void confirmButton() {
+        mainActivity.replaceFragment(R.id.fragment_medicine_list_button1, "2");
+    }
+
+    @OnClick(R.id.fragmentOrderListItemImageButton1) void backButton() {
+        mainActivity.onBackPressed();
     }
 
     @Subscriber(tag = Constants.OPEN_ORDER_DETAILS)
     public void openOrderDetails(OrderDetails orderDetails) {
+
+        for(int i = 0; i < orderDetails.getDrugList().size(); i++) {
+            LinkedHashMap<String, String > salt = new LinkedHashMap<String, String>();
+            String value  = orderDetails.getDrugList().get(i).get("salt");
+            value = value.substring(1, value.length()-1);           //remove curly brackets
+            String[] keyValuePairs = value.split(",");              //split the string to creat key-value pairs
+            for(int j = 0; j< keyValuePairs.length; j++) {
+                saltStringArrayList.add(keyValuePairs[j]);
+            }
+
+            medicineListModelArrayList.add(
+                    new MedicineListModel(
+                            (String) orderDetails.getDrugList().get(i).get("drug"),
+                            (String) orderDetails.getDrugList().get(i).get("company"),
+                            (String) orderDetails.getDrugList().get(i).get("formName"),
+                            (String) orderDetails.getDrugList().get(i).get("type"),
+                            Double.parseDouble(orderDetails.getDrugList().get(i).get("price")),
+                            Integer.parseInt(orderDetails.getDrugList().get(i).get("contains")),
+                            orderDetails.getDrugList().get(i).get("packingDetails"),
+                            saltStringArrayList,
+                            Integer.parseInt(orderDetails.getDrugList().get(i).get("quantityRequired")),
+                            orderDetails.getDrugList().get(i).get("category")));
+        }
+
+        toolbarTitleView.setText(orderDetails.patientName);
+        toolbarDoctorName.setText("Dr. " + orderDetails.doctorName);
+        toolbarDoctorAddress.setText(orderDetails.clinicName);
+        Map<String, Map> image = orderDetails.getPrescription();
+        Object object = "image";
+        /*Uri imageUri = Uri.parse(Constants.apiUrl + "/containers/" +
+                image.get(object).get("container") + "/download/" + image.get(object).get("name") );*/
+
+        String imageUri = image.get(object).get("name")+""+image.get(object).get("container");
+        imageLoader.displayImage(imageUri, imageView);
+
 
     }
 
@@ -216,10 +176,9 @@ public class MedicineListFragment extends android.support.v4.app.Fragment implem
     }
 
     public void updatePrice(String price,int position) {
-        Log.v("signin", "price" + price);
-        Log.v("signin", "rice" + position);
-        mListAdapter.updatePrice(price, position);
-        mExpandableListView.setAdapter(mListAdapter);
+
+        medicineListDrugAdapter.updatePrice(price, position);
+        mExpandableListView.setAdapter(medicineListDrugAdapter);
         //mListAdapter.notifyDataSetChanged();
 
     }

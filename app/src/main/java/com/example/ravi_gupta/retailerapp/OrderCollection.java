@@ -34,18 +34,24 @@ public class OrderCollection {
         /**
          *  TODO Fetch Data From Server
          */
-        map.put("url","http://www.laviniaes.com/files/9514/0420/1878/roskilde-festival-1.jpg");
-        prescription.put("url",map);
+        map.put("name","http://www.laviniaes.com/files/9514/0420/1878/");
+        map.put("container","roskilde-festival-1.jpg");
+        prescription.put("image",map);
 
-        drugMap.put("name","Crocin");
-        drugMap.put("name","Sumo");
-        drugMap.put("name","Combiflame");
-        drugMap.put("name","Acolyte Plus");
-        drugMap.put("name","Disprin");
+        drugMap.put("drug","Crocin");
+        drugMap.put("company","AHPL");
+        drugMap.put("formName","Saridon Tab");
+        drugMap.put("type","Tablet");
+        drugMap.put("price","25");
+        drugMap.put("contains","10");
+        drugMap.put("packingDetails","200 mg x 150 mg x 30 mg");
+        drugMap.put("quantityRequired","10");
+        drugMap.put("category","Drug");
+        drugMap.put("salt","{ Paracetamol: 200 mg, Prophenazol: 150 mg,caffeine: 30 mg }");
 
         drugList.add(drugMap);
 
-        orderDetailsArrayList.add(new OrderDetails(prescription, drugList, "Shyam Sharma", "Dr Shyam", "SatarBhai Clinic", "24 June 2016", 1));
+        orderDetailsArrayList.add(new OrderDetails(prescription, drugList, "Shyam Sharma", "Shyam", "DLF Phase 3", "24 June 2016", 1));
         //orderDetailsArrayList.add(new OrderDetails(prescription ,drugList ,"Ravi Gupta","Dr Shyam","SatarBhai Clinic","24 June 2016", 1));
         //orderDetailsArrayList.add(new OrderDetails(prescription ,drugList ,"Ravi Gupta","Dr Shyam","SatarBhai Clinic","24 June 2016", 1));
         //orderDetailsArrayList.add(new OrderDetails(prescription ,drugList ,"Ravi Gupta","Dr Shyam","SatarBhai Clinic","24 June 2016", 1));

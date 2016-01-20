@@ -9,14 +9,5 @@
         android:layout_height="75dp"
         android:id="@+id/fragment_prescription_header_imageview1" />
 
-    <TextView
-
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="22dp"
-        android:id="@+id/fragment_prescription_header_textview1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Prescription Image"
-        android:textSize="18sp"/>
 
 </LinearLayout>

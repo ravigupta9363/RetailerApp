@@ -238,7 +238,6 @@ public class MedicineListAdapter extends BaseExpandableListAdapter {
 
             else {
                 convertView = infalInflater.inflate(R.layout.fragment_prescription_header,null);
-                TextView prescriptionData = (TextView)convertView.findViewById(R.id.fragment_prescription_header_textview1);
                 ImageView prescriptionImage = (ImageView) convertView.findViewById(R.id.fragment_prescription_header_imageview1);
                 prescriptionImage.setImageDrawable(medicineListHeaderDetails.prescription);
                 final Bitmap expandedPrescription = ((BitmapDrawable) medicineListHeaderDetails.prescription).getBitmap();
@@ -253,7 +252,6 @@ public class MedicineListAdapter extends BaseExpandableListAdapter {
                         Log.v("signin","Bitmap  "+expandedPrescription);
                     }
                 });
-                prescriptionData.setTypeface(typeface);
             }
 
         }
@@ -274,13 +272,13 @@ public class MedicineListAdapter extends BaseExpandableListAdapter {
             if(type == 0){
                 convertView = infalInflater.inflate(R.layout.fragment_medicine_list_child, null);
                 TextView saltName = (TextView) convertView.findViewById(R.id.fragment_medicine_list_child_textview1);
-                TextView composition = (TextView) convertView.findViewById(R.id.fragment_medicine_list_child_textview2);
+               // TextView composition = (TextView) convertView.findViewById(R.id.fragment_medicine_list_child_textview2);
 
                 saltName.setTypeface(typeface);
-                composition.setTypeface(typeface);
+               // composition.setTypeface(typeface);
 
                 saltName.setText(medicineListChildDetails.salt.toString());
-                composition.setText(medicineListChildDetails.composition.toString());
+                //composition.setText(medicineListChildDetails.composition.toString());
             }
             else if(type == 1){
                 convertView = infalInflater.inflate(R.layout.fragment_salt_list_child,null);
