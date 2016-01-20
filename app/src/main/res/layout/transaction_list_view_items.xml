@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dc_white_color"
+    android:paddingLeft="@dimen/order_list_left_padding"
+    android:paddingRight="@dimen/order_list_right_padding"
+    android:paddingTop="@dimen/order_list_top_padding"
+    android:paddingBottom="@dimen/order_list_bottom_padding">
+
+    <LinearLayout
+        android:id="@+id/transaction_list_view_linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/order_list_bottom_margin">
+
+        <TextView
+            android:id="@+id/transaction_list_view_patient_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:id="@+id/transaction_list_view_price"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:textSize="20dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/transaction_list_view_transactionId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="13dp"/>
+
+</LinearLayout>

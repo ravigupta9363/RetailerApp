@@ -1,0 +1,87 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ravi_gupta.retailerapp.MedicineListFragment"
+    android:background="#FFF">
+
+    <!-- TODO: Update blank fragment layout -->
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <ImageButton
+            android:padding="10dp"
+            android:id="@+id/fragmentOrderListItemImageButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+            android:background="#00FFFFFF"
+            />
+        <!-- </RelativeLayout>-->
+
+        <TextView
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/fragmentOrderListItemTextView1"
+            android:textSize="20sp"
+            android:textColor="#FFF"
+            android:text="Medicines"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="right"
+            android:layout_marginRight="5dp">
+
+            <TextView
+                android:id="@+id/fragmentOrderListItemTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="#FFF"
+                android:text="Dr. Alpa Garg"/>
+
+            <TextView
+                android:id="@+id/fragmentOrderListItemTextView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="#FFF"
+                android:text="U 22, DLF PHASE 3"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+    <ExpandableListView
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:groupIndicator="@null"
+        android:id="@+id/fragment_medicine_list_expandable_listview"
+        android:layout_above="@+id/fragment_medicine_list_button1">
+
+    </ExpandableListView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Confirm"
+        android:background="#EEE"
+        android:id="@+id/fragment_medicine_list_button1"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"/>
+
+</RelativeLayout>

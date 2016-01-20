@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="background">#f7f7f7</color>
+    <color name="darkBackground">#cccccc</color>
+    <color name="lightdarkColor">#dddddd</color>
+    <color name="white">#FFFFFF</color>
+    <color name="lightTextColor">#999999</color>
+    <color name="black">#000000</color>
+    <color name="googleRed">#d34836</color>
+    <color name="darkTextColor">#777777</color>
+    <color name="ratingBarSelected">#FFCA28</color>
+    <color name="ratingBarEmpty">#DDDDDD</color>
+    <color name="aaaColor">#AAAAAA</color>
+    <color name="recipeNameColor">#333</color>
+
+
+</resources>

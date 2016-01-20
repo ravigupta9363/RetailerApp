@@ -1,0 +1,126 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="#FFF"
+    tools:context="com.example.ravi_gupta.retailerapp.DiscountFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <ImageButton
+            android:padding="10dp"
+            android:id="@+id/fragmentDiscountImageButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+            android:background="#00FFFFFF"
+            />
+        <!-- </RelativeLayout>-->
+
+        <TextView
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/fragmentDiscountTextView1"
+            android:textSize="20sp"
+            android:textColor="#FFF"
+            android:text="Discount"
+            />
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/discount_fragment_discount_text"
+            android:layout_marginBottom="15dp"
+            android:id="@+id/fragmentDiscountTextView2"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:enabled="false"
+            android:singleLine="true"
+            android:text="5%"
+            android:id="@+id/fragmentDiscountEditText1"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:text="@string/discount_fragment_return_text"
+            android:layout_marginBottom="15dp"
+            android:id="@+id/fragmentDiscountTextView3"/>
+
+        <RadioGroup
+            android:id="@+id/fragmentDiscountRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="30dp">
+
+            <RadioButton
+                android:id="@+id/fragmentDiscountRadioButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/discount_fragment_allow_return_text"
+                android:textSize="15sp"
+                android:layout_weight="1.7"
+                android:clickable="false"
+                android:textColor="@android:color/darker_gray"/>
+
+            <RadioButton
+                android:id="@+id/fragmentDiscountRadioButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/discount_fragment_doesnt_allow_return_text"
+                android:textSize="15sp"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:textColor="@android:color/darker_gray"/>
+
+        </RadioGroup>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="EDIT"
+            android:background="#EEE"
+            android:textSize="18sp"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/fragmentDiscountButton1"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="update"
+            android:background="#EEE"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:id="@+id/fragmentDiscountButton2"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

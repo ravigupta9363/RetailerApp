@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="#FFF"
+    android:paddingLeft="10dp" android:paddingRight="10dp" android:paddingTop="15dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="3">
+
+        <TextView
+            android:id="@+id/fragment_medicine_list_header_textview1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crocin"
+            android:textSize="18sp"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/fragment_medicine_list_header_textview2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="350 mg"
+            android:textSize="15dp"/>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/fragment_medicine_list_header_textview3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:textSize="15dp"
+            android:layout_marginRight="5dp"
+            />
+        <TextView
+            android:id="@+id/fragment_medicine_list_header_textview4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="tablets"
+            android:textSize="15dp"
+            />
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/fragment_medicine_list_header_textview5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0/-"
+            android:textSize="18dp"
+            android:layout_weight="1"
+            android:gravity="right"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/fragment_medicine_list_header_textview6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Piramal Healthcare"
+        android:textSize="15dp"
+        android:layout_marginBottom="5dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp">
+
+        <Button
+            android:background="@drawable/button_style"
+            android:id="@+id/fragment_medicine_list_header_button1"
+            android:layout_width="wrap_content"
+            android:minWidth="0dp"
+            android:layout_height="wrap_content"
+            android:text="Not Available"
+            android:textSize="18dp"
+            android:textColor="@android:color/holo_red_light"
+            android:textAllCaps="false" />
+
+        <Button
+            android:gravity="right"
+            android:background="@drawable/button_style"
+            android:id="@+id/fragment_medicine_list_header_button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available"
+            android:textSize="18dp"
+            android:textColor="#36B666"
+            android:textAllCaps="false"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

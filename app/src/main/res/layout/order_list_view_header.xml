@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/order_list_left_padding"
+    android:paddingBottom="@dimen/order_list_bottom_padding"
+    android:paddingTop="@dimen/order_list_top_padding">
+    
+    <TextView
+        android:id="@+id/order_list_view_header_date"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/order_list_view_header_dummy_date"
+        android:textColor="#555"
+        android:textSize="18sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"/>
+
+</LinearLayout>

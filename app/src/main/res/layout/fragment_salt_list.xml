@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="#FFF" android:paddingRight="10dp"
+    android:paddingLeft="10dp" android:paddingTop="15dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3">
+
+            <TextView
+                android:id="@+id/fragment_salt_textview1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Medicine"
+                android:textSize="18sp"
+                android:layout_marginRight="5dp"/>
+
+            <TextView
+                android:id="@+id/fragment_salt_textview2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="350mg"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/fragment_salt_textview3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="5"
+                android:layout_marginRight="5dp"/>
+
+            <TextView
+                android:id="@+id/fragment_salt_textview4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Tablets"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/fragment_salt_textview5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NA"
+            android:layout_weight="1"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/fragment_salt_textview6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NA"
+        android:layout_marginBottom="5dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp">
+
+        <Button
+            android:background="@drawable/button_style"
+            android:id="@+id/fragment_salt_button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Not Available"
+            android:textSize="18dp"
+            android:textColor="@android:color/holo_red_light"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:layout_alignParentRight="true"
+            android:background="@drawable/button_style"
+            android:id="@+id/fragment_salt_button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Avialable"
+            android:textSize="18dp"
+            android:textColor="#36B666"
+            android:textAllCaps="false"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

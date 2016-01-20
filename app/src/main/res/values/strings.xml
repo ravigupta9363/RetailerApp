@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name"></string>
+
+    <!--Array of Navigation Items-->
+    <string-array name="sections_title">
+        <item>  Profile</item>
+        <item>  Discount &amp; Return</item>
+        <item>  Today Transaction</item>
+        <item>  Contact us</item>
+        <item>  Start / Stop service</item>
+        <item>  Logout</item>
+    </string-array>
+
+    <!--Array of Navigation Icons-->
+    <string-array name="sections_icons">
+        <item>@mipmap/dc_profile</item>
+        <item>@mipmap/dc_discount</item>
+        <item>@mipmap/dc_transaction</item>
+        <item>@mipmap/dc_contact</item>
+        <item>@mipmap/dc_stop</item>
+        <item>@mipmap/dc_logout</item>
+    </string-array>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="contact_us_fragment">Contact Us</string>
+    <string name="last_transaction_fragment">Today Transaction</string>
+    <string name="profile_fragment">Profile</string>
+    <string name="suggested_medicine_fragment">Discount &amp; Return</string>
+
+    <string name="navigation_drawer_header_name">Ravi</string>
+    <string name="navigation_drawer_header_address">52 N 12, Pratap Nagar</string>
+    <string name="order_list_view_header_dummy_date">22 June 2015</string>
+    <string name="order_list_view_items_dummy_name">Ravi Gupta</string>
+    <string name="order_list_view_items_dummy_price">200/-</string>
+    <string name="order_list_view_items_dummy_medicine_list">Paracetamol, Crocin, Acolyte, Strepsils</string>
+    <string name="order_list_view_items_dummy_order_expire_text">Order valid for</string>
+    <string name="order_list_view_items_dummy_expire_time">12 min</string>
+    <string name="order_list_view_items_dummy_cancel">Cancel</string>
+    <string name="order_list_view_items_dummy_open">Open</string>
+    <string name="discount_fragment_discount_text">Discount</string>
+    <string name="discount_fragment_return_text">Return</string>
+    <string name="discount_fragment_allow_return_text">Allow</string>
+    <string name="discount_fragment_doesnt_allow_return_text">Deny</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="salt_list_fragment">Paracetamol</string>
+    <string name="hello_world">Hello world!</string>
+</resources>

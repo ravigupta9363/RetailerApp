@@ -1,0 +1,171 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ravi_gupta.retailerapp.ProfileFragment" android:background="@drawable/dc_white_color">
+
+    <!-- TODO: Update blank fragment layout -->
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <ImageButton
+            android:padding="10dp"
+            android:id="@+id/fragmentProfileImageButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+            android:background="#00FFFFFF"
+            />
+        <!-- </RelativeLayout>-->
+
+        <TextView
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/fragmentProfileTextView1"
+            android:textSize="20sp"
+            android:textColor="#FFF"
+            android:text="Profile"
+            />
+
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/toolbar"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Shop Name"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/fragmentProfileTextView2"
+            android:textSize="15sp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Apollo Pharmacy"
+            android:enabled="false"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/fragmentProfileEditText1"
+            android:singleLine="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="First Name"
+                android:layout_weight="1"
+                android:id="@+id/fragmentProfileTextView3"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Last Name"
+                android:layout_weight="1"
+                android:id="@+id/fragmentProfileTextView4"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="30dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ravi"
+            android:layout_weight="0.5"
+            android:enabled="false"
+            android:id="@+id/fragmentProfileEditText2"
+            android:singleLine="true"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gupta"
+            android:layout_weight="0.5"
+            android:enabled="false"
+            android:id="@+id/fragmentProfileEditText3"
+            android:singleLine="true"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mobile Number"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/fragmentProfileTextView5"
+            android:textSize="15sp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="9460109363"
+            android:layout_marginBottom="30dp"
+            android:inputType="phone"
+            android:enabled="false"
+            android:id="@+id/fragmentProfileEditText4"
+            android:singleLine="true"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email Address"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/fragmentProfileTextView6"
+            android:textSize="15sp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ravigupta9363@gmail.com"
+            android:layout_marginBottom="30dp"
+            android:inputType="textEmailAddress"
+            android:enabled="false"
+            android:id="@+id/fragmentProfileEditText5"
+            android:singleLine="true"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:background="#EEE"
+            android:id="@+id/fragmentProfileButton1"
+            android:textSize="18sp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Update"
+            android:background="#EEE"
+            android:visibility="gone"
+            android:id="@+id/fragmentProfileButton2"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,17 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="order_list_right_padding">15dp</dimen>
+    <dimen name="order_list_left_padding">10dp</dimen>
+    <dimen name="order_list_top_padding">10dp</dimen>
+    <dimen name="order_list_bottom_padding">10dp</dimen>
+    <dimen name="order_list_right_margin">10dp</dimen>
+    <dimen name="order_list_left_margin">10dp</dimen>
+    <dimen name="order_list_top_margin">10dp</dimen>
+    <dimen name="order_list_bottom_margin">5dp</dimen>
+
+    <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
+         https://developer.android.com/design/patterns/navigation-drawer.html -->
+    <dimen name="navigation_drawer_width">280dp</dimen>
+</resources>

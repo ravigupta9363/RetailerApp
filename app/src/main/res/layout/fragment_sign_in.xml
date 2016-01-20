@@ -1,0 +1,102 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ravi_gupta.retailerapp.SignInFragment"
+    android:background="@drawable/dc_white_color">
+
+    <!-- TODO: Update blank fragment layout -->
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <ImageButton
+            android:padding="10dp"
+            android:id="@+id/fragment_sign_in_imagebutton1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+            android:background="#00FFFFFF" />
+        <!-- </RelativeLayout>-->
+
+        <TextView
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_sign_in_textview4"
+            android:textSize="20sp"
+            android:textColor="#FFF"
+            android:text="Sign In" />
+
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="#FFF"
+        android:paddingTop="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp">
+
+            <EditText
+                android:id="@+id/fragment_sign_in_edittext1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:textSize="14sp"
+                android:hint="Username" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp">
+
+        <EditText
+            android:id="@+id/fragment_sign_in_edittext2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:textSize="14sp"
+            android:hint="Password"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:background="@drawable/button_style"
+            android:id="@+id/fragment_sign_in_button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Forget Password?"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/fragment_sign_in_button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/googleRed"
+        android:text="Sign in"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_alignParentBottom="true"
+        android:textAllCaps="false" />
+</RelativeLayout>
