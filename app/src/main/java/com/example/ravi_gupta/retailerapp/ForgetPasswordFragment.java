@@ -13,9 +13,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -66,7 +63,10 @@ public class ForgetPasswordFragment extends android.support.v4.app.Fragment {
 
     @OnClick(R.id.fragment_forget_password_button2) void requestOTP() {
 
-        Pattern patternPhone = Pattern.compile("^[789]\\d{9}$");
+        Snackbar.make(getView(), "Coming soon", Snackbar.LENGTH_SHORT).show();
+
+
+        /*Pattern patternPhone = Pattern.compile("^[789]\\d{9}$");
         Matcher matcherEmail = patternPhone.matcher(emailEdittext.getText().toString());
 
         if(emailEdittext.getText().toString().isEmpty()) {
@@ -78,7 +78,7 @@ public class ForgetPasswordFragment extends android.support.v4.app.Fragment {
         else {
             Snackbar.make(getView(), "Phone is not valid", Snackbar.LENGTH_SHORT).show();
 
-        }
+        }*/
     }
 
     // TODO: Rename method, update argument and hook method into UI event

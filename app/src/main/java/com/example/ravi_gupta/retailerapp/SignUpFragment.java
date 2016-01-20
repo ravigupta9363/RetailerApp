@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 /**
@@ -27,14 +25,7 @@ import java.util.regex.Pattern;
  * create an instance of this fragment.
  */
 public class SignUpFragment extends android.support.v4.app.Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private OnFragmentChange callBack1;
     public static String TAG = "SignUpFragment";
     MainActivity mainActivity;
@@ -97,7 +88,9 @@ public class SignUpFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
 
-                Pattern patternShop = Pattern.compile("^[a-zA-Z\\s]+$",Pattern.CASE_INSENSITIVE);
+                Snackbar.make(getView(), "Coming soon", Snackbar.LENGTH_SHORT).show();
+
+                /*Pattern patternShop = Pattern.compile("^[a-zA-Z\\s]+$",Pattern.CASE_INSENSITIVE);
                 Pattern patternFirstName = Pattern.compile("^[a-zA-Z\\s]+$",Pattern.CASE_INSENSITIVE);
                 Pattern patternLastName = Pattern.compile("^[a-zA-Z\\s]+$",Pattern.CASE_INSENSITIVE);
                 Pattern patternPhone = Pattern.compile("^[789]\\d{9}$");
@@ -114,7 +107,7 @@ public class SignUpFragment extends android.support.v4.app.Fragment {
                /* if(matcherEmail.matches() && matcherPassword.matches() && matcherShop.matches() && matcherFirstName.matches()
                         && matcherLastName.matches() && matcherPhone.matches()) {*/
 
-                    mainActivity.replaceFragment(R.id.fragment_sign_up_button1,null);
+                    //mainActivity.replaceFragment(R.id.fragment_sign_up_button1,null);
                /* }
                 else {
                     Toast.makeText(getActivity(), "Enter All Information", Toast.LENGTH_LONG).show();

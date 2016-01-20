@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity
                                 .replace(R.id.container, new ProfileFragment()).addToBackStack(null)
                                 .commitAllowingStateLoss();
                         //mDrawerLayout.closeDrawer(Gravity.START);
-
                         Log.v("dc", "Profile is Clicked");
                     }
                 },300);
@@ -252,23 +251,15 @@ public class MainActivity extends AppCompatActivity
 
 
             case R.id.order_list_view_open_order:
-                Bundle bundle = new Bundle();
                 MedicineListFragment frag3 = (MedicineListFragment) getSupportFragmentManager().
                         findFragmentByTag(MedicineListFragment.TAG);
                 if (frag3 == null) {
                     frag3 = MedicineListFragment.newInstance();
                 }
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                OrderDetails orderDetails = (OrderDetails) object;
-                bundle.putString("patientName",orderDetails.patientName);
-                bundle.putString("doctorName",orderDetails.doctorName);
-                bundle.putString("doctorAddress",orderDetails.clinicName);
-                bundle.putString("orderNumber","");
-                frag3.setArguments(bundle);
 
-                ft.replace(R.id.container, frag3, MedicineListFragment.TAG).addToBackStack(OrderListFragment.TAG);
+                ft.replace(R.id.container, frag3, MedicineListFragment.TAG).addToBackStack(null);
                 ft.commitAllowingStateLoss();
-                mTitle = "";
                 break;
 
             case R.layout.fragment_home:
@@ -343,7 +334,6 @@ public class MainActivity extends AppCompatActivity
                 Log.v("dialog", "called");
                 OrderListFragment frag9 = (OrderListFragment) getSupportFragmentManager().
                         findFragmentByTag(OrderListFragment.TAG);
-                frag9.updateOrderList();
                 ft.replace(R.id.container, frag9, OrderListFragment.TAG).addToBackStack(null);
                 ft.commitAllowingStateLoss();
                 break;

@@ -3,8 +3,10 @@ package com.example.ravi_gupta.retailerapp;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +37,7 @@ import butterknife.OnClick;
  * Use the {@link MedicineListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MedicineListFragment extends android.support.v4.app.Fragment implements OnBackPressed {
+public class MedicineListFragment extends android.support.v4.app.Fragment {
 
     public static String TAG = "MedicineListFragment";
     Context context;
@@ -49,6 +51,7 @@ public class MedicineListFragment extends android.support.v4.app.Fragment implem
     ArrayList<String> saltStringArrayList = new ArrayList<String>();
     @Bind(R.id.fragment_medicine_list_imageview) ImageView imageView;
     ImageLoader imageLoader;
+    String imageUri;
     private OnFragmentInteractionListener mListener;
 
     public static MedicineListFragment newInstance() {
@@ -83,16 +86,47 @@ public class MedicineListFragment extends android.support.v4.app.Fragment implem
     }
 
     @OnClick(R.id.fragment_medicine_list_button1) void confirmButton() {
-        mainActivity.replaceFragment(R.id.fragment_medicine_list_button1, "2");
+        showDialog();
     }
+
+    public void showDialog(){
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mainActivity);
+        alertDialogBuilder.setMessage("Confirm the Order?");
+
+        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                EventBus.getDefault().post("2",Constants.UPDATE_ORDER_LIST);
+                mainActivity.onBackPressed();
+                arg0.dismiss();
+            }
+        });
+
+        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
 
     @OnClick(R.id.fragmentOrderListItemImageButton1) void backButton() {
         mainActivity.onBackPressed();
     }
 
+    @OnClick(R.id.fragment_medicine_list_imageview) void zoomImage() {
+        EventBus.getDefault().postSticky(imageUri, Constants.ZOOM_PRESCRIPTION);
+        mainActivity.replaceFragment(R.id.fragment_prescription_header_imageview1, null);
+    }
+
     @Subscriber(tag = Constants.OPEN_ORDER_DETAILS)
     public void openOrderDetails(OrderDetails orderDetails) {
 
+        medicineListModelArrayList.clear();
         for(int i = 0; i < orderDetails.getDrugList().size(); i++) {
             LinkedHashMap<String, String > salt = new LinkedHashMap<String, String>();
             String value  = orderDetails.getDrugList().get(i).get("salt");
@@ -124,7 +158,7 @@ public class MedicineListFragment extends android.support.v4.app.Fragment implem
         /*Uri imageUri = Uri.parse(Constants.apiUrl + "/containers/" +
                 image.get(object).get("container") + "/download/" + image.get(object).get("name") );*/
 
-        String imageUri = image.get(object).get("name")+""+image.get(object).get("container");
+        imageUri = image.get(object).get("name")+""+image.get(object).get("container");
         imageLoader.displayImage(imageUri, imageView);
 
 
@@ -153,11 +187,6 @@ public class MedicineListFragment extends android.support.v4.app.Fragment implem
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    @Override
-    public void onBackPressed() {
-        getActivity().onBackPressed();
     }
 
     /**

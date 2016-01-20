@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class OrderDetailsAdapter extends ArrayAdapter<OrderDetails>{
 
     Context context;
+    MainActivity mainActivity;
     int resource;
     private OnFragmentChange callback1;
     int orderListPosition;
@@ -28,9 +29,10 @@ public class OrderDetailsAdapter extends ArrayAdapter<OrderDetails>{
     private OrderListFragment.OnFragmentInteractionListener callback2;
     ArrayList<OrderDetails> orderDetails = new ArrayList<OrderDetails>();
 
-    public OrderDetailsAdapter(Context context, int resource, ArrayList<OrderDetails> orderDetails) {
-        super(context, resource, orderDetails);
-        this.context = context;
+    public OrderDetailsAdapter(MainActivity mainActivity, int resource, ArrayList<OrderDetails> orderDetails) {
+        super(mainActivity, resource, orderDetails);
+        this.mainActivity = mainActivity;
+        this.context = (Context) mainActivity;
         callback1 = (OnFragmentChange)context;
         callback2 = (OrderListFragment.OnFragmentInteractionListener) context;
         this.resource = resource;
@@ -62,15 +64,6 @@ public class OrderDetailsAdapter extends ArrayAdapter<OrderDetails>{
 
             holder = (OrderDetailsHolder)row.getTag();
         }
-        //Assigning custom fonts
-
-        /*holder.patientName.setTypeface(typeface);
-        holder.orderNumber.setTypeface(typeface);
-        holder.expirationTime.setTypeface(typeface);
-        holder.expirationText.setTypeface(typeface);
-        holder.openOrder.setTypeface(typeface);
-        holder.cancelOrder.setTypeface(typeface);*/
-        // final String uri = holder.patientName.toString();
         final OrderDetails orderDetails1 = orderDetails.get(position);
 
         holder.openOrder.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +72,7 @@ public class OrderDetailsAdapter extends ArrayAdapter<OrderDetails>{
 
                 // callback2.onFragmentInteraction(uri);
                 EventBus.getDefault().postSticky(orderDetails1,Constants.OPEN_ORDER_DETAILS);
-                callback1.replaceFragment(R.id.order_list_view_open_order, orderDetails.get(position));
+                mainActivity.replaceFragment(R.id.order_list_view_open_order, null);
                 orderListPosition = position;
             }
         });

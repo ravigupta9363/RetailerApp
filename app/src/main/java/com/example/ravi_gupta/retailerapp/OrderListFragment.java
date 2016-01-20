@@ -58,6 +58,7 @@ import java.util.ArrayList;
 
     @Subscriber(tag = Order.ORDER_INITIALIZE)
     private void OrderInitilize(ArrayList<Order> orderArrayList) {
+        orderDetails.clear();
         for(int i = 0; i< orderArrayList.size(); i++) {
             orderDetails.add(new OrderDetails(orderArrayList.get(i).getOrderDetails().get(0).getPrescription(),
                     orderArrayList.get(i).getOrderDetails().get(0).getDrugList(),
@@ -79,7 +80,7 @@ import java.util.ArrayList;
 
 
         //Set adapter for Order List
-        orderDetailsAdapter = new OrderDetailsAdapter(getActivity(),R.layout.order_list_view_items,orderDetails);
+        orderDetailsAdapter = new OrderDetailsAdapter(mainActivity,R.layout.order_list_view_items,orderDetails);
 
         View rootview = inflater.inflate(R.layout.fragment_order_list, container, false);
         //View rootview2 = (View)getActivity().getLayoutInflater().inflate(R.layout.order_list_view_items,null);
@@ -119,7 +120,7 @@ import java.util.ArrayList;
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.mainActivity = (MainActivity) activity;
+        mainActivity = (MainActivity) activity;
         try {
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
@@ -149,10 +150,10 @@ import java.util.ArrayList;
         public void onFragmentInteraction(Uri uri);
     }
 
-    public void updateOrderList() {
+    @Subscriber(tag = Constants.UPDATE_ORDER_LIST)
+    public  void updateOrderList(String code) {
         orderDetailsAdapter.updateOrderList();
         mListView.setAdapter(orderDetailsAdapter);
-
     }
 
 }
