@@ -57,6 +57,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/order_list_view_items_dummy_order_expire_text"
+            android:visibility="gone"
             android:textSize="15dp"/>
 
         <TextView
@@ -66,7 +67,8 @@
             android:layout_weight="1"
             android:gravity="right"
             android:text="@string/order_list_view_items_dummy_expire_time"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            android:visibility="gone"/>
 
     </LinearLayout>
 

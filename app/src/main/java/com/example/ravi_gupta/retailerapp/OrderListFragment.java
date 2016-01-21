@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +16,12 @@ import android.widget.TextView;
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 
 /**
@@ -31,10 +35,13 @@ import java.util.ArrayList;
     public class OrderListFragment extends android.support.v4.app.Fragment {
 
     public static String TAG = "OrderListFragment";
-    private ListView mListView;
     MainActivity mainActivity;
     OrderDetailsAdapter orderDetailsAdapter;
     ArrayList<OrderDetails> orderDetails;
+    @Bind(R.id.fragment_order_listview) ListView mListView;
+    @Bind(R.id.fragment_order_list_imagebutton1) ImageButton menuButton;
+    @Bind(R.id.fragment_order_list_textview1) TextView toolbarTextview;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -52,7 +59,6 @@ import java.util.ArrayList;
         super.onCreate(savedInstanceState);
         EventBus.getDefault().registerSticky(this);
         EventBus.getDefault().register(this);
-        String[] medicineList = {"Paracetamol","Crocin","Azithomycin","Strepsils"};
         orderDetails = new ArrayList<OrderDetails>();
     }
 
@@ -74,39 +80,32 @@ import java.util.ArrayList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
-        //dummy data for list view
-
-
-        //Set adapter for Order List
         orderDetailsAdapter = new OrderDetailsAdapter(mainActivity,R.layout.order_list_view_items,orderDetails);
 
         View rootview = inflater.inflate(R.layout.fragment_order_list, container, false);
-        //View rootview2 = (View)getActivity().getLayoutInflater().inflate(R.layout.order_list_view_items,null);
-        mListView = (ListView)rootview.findViewById(R.id.fragment_order_listview);
-        ImageButton menuButton = (ImageButton)rootview.findViewById(R.id.fragment_order_list_imagebutton1);
-        TextView toolbarTextview = (TextView)rootview.findViewById(R.id.fragment_order_list_textview1);
+        ButterKnife.bind(this, rootview);
      
         View header = (View)getActivity().getLayoutInflater().inflate(R.layout.order_list_view_header, null);
         mListView.addHeaderView(header);
         Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/gothic.ttf");
-        TextView listHeader = (TextView)rootview.findViewById(R.id.order_list_view_header_date);
+        TextView listHeader  = (TextView)header.findViewById(R.id.order_list_view_header_date) ;
         listHeader.setTypeface(typeface);
         toolbarTextview.setTypeface(typeface);
 
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-                //drawerLayout.openDrawer(mDrawer);
                 mainActivity.mDrawerLayout.openDrawer(Gravity.LEFT);
-                Log.v("signup", "menu is clicked");
             }
         });
 
-        mListView.setAdapter(orderDetailsAdapter);
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy");
+        String todaysDate = df.format(calendar.getTime());
+        listHeader.setText(todaysDate);
 
+        mListView.setAdapter(orderDetailsAdapter);
         return rootview;
     }
 

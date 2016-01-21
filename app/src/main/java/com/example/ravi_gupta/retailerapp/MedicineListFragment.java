@@ -96,7 +96,7 @@ public class MedicineListFragment extends android.support.v4.app.Fragment {
         alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
-                EventBus.getDefault().post("2",Constants.UPDATE_ORDER_LIST);
+                EventBus.getDefault().post("2",Constants.NOTIFY_ORDER_CONFIRMATION_ON_SERVER);
                 mainActivity.onBackPressed();
                 arg0.dismiss();
             }

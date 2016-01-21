@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.simple.eventbus.EventBus;
+
 import java.util.ArrayList;
 
 /**
@@ -120,6 +122,9 @@ public class MedicineListDrugAdapter extends BaseExpandableListAdapter {
                     public void onAnimationEnd(Animation animation) {
                         medicineListModelArrayList.remove(groupPosition);
                         notifyDataSetChanged();
+                        if(medicineListModelArrayList.size() == 0)
+                            mainActivity.onBackPressed();
+                            EventBus.getDefault().post("2",Constants.NOTIFY_ORDER_CONFIRMATION_ON_SERVER);
                     }
                 });
                 finalConvertView.startAnimation(animation);

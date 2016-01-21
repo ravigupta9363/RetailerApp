@@ -84,14 +84,13 @@ public class OrderDetailsAdapter extends ArrayAdapter<OrderDetails>{
             }
         });
 
-        //String medicineList = orderDetails1.medicineList[0];
+        String medicineList = orderDetails1.getDrugList().get(0).get("drug");
         holder.patientName.setText(orderDetails1.patientName);
-        //holder.orderNumber.setText(String.valueOf(orderDetails1.orderNumber));
-        /*for(int i = 1; i<orderDetails1.medicineList.length; i++) {
-            medicineList = medicineList + ", " +orderDetails1.medicineList[i];
+        //holder.orderNumber.setText(String.valueOf(orderDetails1.orderNumber));*/
+        for(int i = 1; i<orderDetails1.getDrugList().size(); i++) {
+            medicineList = medicineList + ", " +orderDetails1.getDrugList().get(i).get("drug");
         }
         holder.medicineList.setText(medicineList);
-        holder.expirationTime.setText(String.valueOf(orderDetails1.expirationTime)+" mins");*/
         return row;
     }
 

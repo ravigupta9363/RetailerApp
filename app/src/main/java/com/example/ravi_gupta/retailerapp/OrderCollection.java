@@ -1,6 +1,7 @@
 package com.example.ravi_gupta.retailerapp;
 
 import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +23,8 @@ public class OrderCollection {
     private HashMap<String,String> drugMap =  new HashMap<String, String>();
 
     public OrderCollection() {
+        EventBus.getDefault().registerSticky(this);
+        EventBus.getDefault().register(this);
         initialize();
     }
 
@@ -52,27 +55,20 @@ public class OrderCollection {
         drugList.add(drugMap);
 
         orderDetailsArrayList.add(new OrderDetails(prescription, drugList, "Shyam Sharma", "Shyam", "DLF Phase 3", "24 June 2016", 1));
-        //orderDetailsArrayList.add(new OrderDetails(prescription ,drugList ,"Ravi Gupta","Dr Shyam","SatarBhai Clinic","24 June 2016", 1));
-        //orderDetailsArrayList.add(new OrderDetails(prescription ,drugList ,"Ravi Gupta","Dr Shyam","SatarBhai Clinic","24 June 2016", 1));
-        //orderDetailsArrayList.add(new OrderDetails(prescription ,drugList ,"Ravi Gupta","Dr Shyam","SatarBhai Clinic","24 June 2016", 1));
-
-        /*HashMap<String,String> imageURL =  new HashMap<String, String>();
-        imageURL.put("name","http://www.laviniaes.com/files/9514/0420/1878/");
-        imageURL.put("container","roskilde-festival-1.jpg");
-
-        HashMap<String,Double> latLong = new HashMap<String, Double>();
-        latLong.put("latitude",28.4591179);
-        latLong.put("longitude",77.1703644);*/
-
         orderArrayList.add(new Order("1","26 June 2016","1","1",orderDetailsArrayList));
         orderArrayList.add(new Order("2","26 June 2016","1","1",orderDetailsArrayList));
         orderArrayList.add(new Order("3","26 June 2016","1","1",orderDetailsArrayList));
         orderArrayList.add(new Order("4","26 June 2016","1","1",orderDetailsArrayList));
         orderArrayList.add(new Order("5","26 June 2016","1","1",orderDetailsArrayList));
 
-
         EventBus.getDefault().postSticky(orderArrayList, Order.ORDER_INITIALIZE);
 
+    }
+
+    @Subscriber( tag = Constants.NOTIFY_ORDER_CONFIRMATION_ON_SERVER )
+    public void sendOrderDetailsOnServer(String orderId) {
+        //TODO Send to server
+        EventBus.getDefault().post(orderId, Constants.UPDATE_ORDER_LIST);
     }
 
 }
