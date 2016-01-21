@@ -14,11 +14,12 @@ import android.widget.TextView;
 import org.simple.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ravi-Gupta on 6/6/2015.
  */
-public class OrderDetailsAdapter extends ArrayAdapter<OrderDetails>{
+public class OrderDetailsAdapter extends ArrayAdapter<Order>{
 
     Context context;
     MainActivity mainActivity;
@@ -27,21 +28,21 @@ public class OrderDetailsAdapter extends ArrayAdapter<OrderDetails>{
     int orderListPosition;
 
     private OrderListFragment.OnFragmentInteractionListener callback2;
-    ArrayList<OrderDetails> orderDetails = new ArrayList<OrderDetails>();
+    ArrayList<Order> order = new ArrayList<Order>();
 
-    public OrderDetailsAdapter(MainActivity mainActivity, int resource, ArrayList<OrderDetails> orderDetails) {
-        super(mainActivity, resource, orderDetails);
+    public OrderDetailsAdapter(MainActivity mainActivity, int resource, ArrayList<Order> order) {
+        super(mainActivity, resource, order);
         this.mainActivity = mainActivity;
         this.context = (Context) mainActivity;
         callback1 = (OnFragmentChange)context;
         callback2 = (OrderListFragment.OnFragmentInteractionListener) context;
         this.resource = resource;
-        this.orderDetails = orderDetails;
+        this.order = order;
     }
     @Override
     public View getView(final int position, final View convertView, ViewGroup parent) {
         View row = convertView;
-        OrderDetailsHolder holder = null;
+        OrderHolder holder = null;
 
 
         if(row == null)
@@ -49,7 +50,7 @@ public class OrderDetailsAdapter extends ArrayAdapter<OrderDetails>{
 
             LayoutInflater layoutInflater = LayoutInflater.from(context);
             row = layoutInflater.inflate(resource,parent,false);
-            holder = new OrderDetailsHolder();
+            holder = new OrderHolder();
             holder.patientName = (TextView)row.findViewById(R.id.order_list_view_patient_name);
             holder.orderNumber = (TextView)row.findViewById(R.id.order_list_view_order_no);
             holder.medicineList = (TextView)row.findViewById(R.id.order_list_view_medicine_list);
@@ -62,10 +63,10 @@ public class OrderDetailsAdapter extends ArrayAdapter<OrderDetails>{
         }
         else {
 
-            holder = (OrderDetailsHolder)row.getTag();
+            holder = (OrderHolder)row.getTag();
         }
-        final OrderDetails orderDetails1 = orderDetails.get(position);
-
+        final OrderDetails orderDetails1 = ((List<OrderDetails>)order.get(position).get("orderDetails")).get(0);
+        Order order = this.order.get(position);
         holder.openOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,10 +84,12 @@ public class OrderDetailsAdapter extends ArrayAdapter<OrderDetails>{
                 showDialog(position);
             }
         });
-
-        String medicineList = orderDetails1.getDrugList().get(0).get("drug");
+        String medicineList = "";
+        if(!orderDetails1.getDrugList().isEmpty()){
+            medicineList = (String)orderDetails1.getDrugList().get(0).get("drug");
+        }
         holder.patientName.setText(orderDetails1.patientName);
-        //holder.orderNumber.setText(String.valueOf(orderDetails1.orderNumber));*/
+        holder.orderNumber.setText(String.valueOf(order.getId()));
         for(int i = 1; i<orderDetails1.getDrugList().size(); i++) {
             medicineList = medicineList + ", " +orderDetails1.getDrugList().get(i).get("drug");
         }
@@ -101,7 +104,7 @@ public class OrderDetailsAdapter extends ArrayAdapter<OrderDetails>{
         alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
-                orderDetails.remove(orderDetails.get(position));
+                order.remove(order.get(position));
                 notifyDataSetChanged();
                 arg0.dismiss();
             }
@@ -120,7 +123,7 @@ public class OrderDetailsAdapter extends ArrayAdapter<OrderDetails>{
 
 
 
-    static class OrderDetailsHolder {
+    static class OrderHolder {
         TextView patientName;
         TextView orderNumber;
         TextView medicineList;
@@ -131,8 +134,8 @@ public class OrderDetailsAdapter extends ArrayAdapter<OrderDetails>{
     }
 
     public void updateOrderList() {
-        Log.v("dialog","OrderDetailsAdapter");
-        orderDetails.remove(orderDetails.get(orderListPosition));
+        Log.v("dialog","OrderAdapter");
+        order.remove(order.get(orderListPosition));
         notifyDataSetChanged();
     }
 }

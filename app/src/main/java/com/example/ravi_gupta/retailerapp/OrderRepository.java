@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,18 @@ public class OrderRepository  extends ModelRepository<Order> {
                     List<Order> orderList = new ArrayList<Order>();
                     OrderRepository orderRepo = getRestAdapter().createRepository(OrderRepository.class);
                     for (Map<String, Object> obj : objList) {
+                        if(obj.get("orderDetails") != null){
+                            List<Map> orderDetails = (List<Map>)obj.get("orderDetails");
+                            List<OrderDetails> orderDetailses = new ArrayList<>();
+                            for(Map<String, Object> detail : orderDetails){
+                                OrderDetailsRepository orderDetailsRepo = getRestAdapter().createRepository(OrderDetailsRepository.class);
+                                OrderDetails orderDetails1 = orderDetailsRepo.createObject(detail);
+                                orderDetailses.add(orderDetails1);
+                            }
+                            obj.put("orderDetails", orderDetailses);
+
+                        }
+
                         Order order = orderRepo.createObject(obj);
                         orderList.add(order);
                     }
@@ -60,6 +73,4 @@ public class OrderRepository  extends ModelRepository<Order> {
             }
         });
     }
-
-
 }

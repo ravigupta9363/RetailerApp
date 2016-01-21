@@ -38,8 +38,8 @@ import butterknife.ButterKnife;
 
     public static String TAG = "OrderListFragment";
     MainActivity mainActivity;
-    OrderDetailsAdapter orderDetailsAdapter;
-    ArrayList<OrderDetails> orderDetails;
+    OrderDetailsAdapter orderAdapter;
+    ArrayList<Order> orders;
     @Bind(R.id.fragment_order_listview) ListView mListView;
     @Bind(R.id.fragment_order_list_imagebutton1) ImageButton menuButton;
     @Bind(R.id.fragment_order_list_textview1) TextView toolbarTextview;
@@ -61,57 +61,21 @@ import butterknife.ButterKnife;
         super.onCreate(savedInstanceState);
         EventBus.getDefault().registerSticky(this);
         EventBus.getDefault().register(this);
-        orderDetails = new ArrayList<OrderDetails>();
+        orders = new ArrayList<Order>();
     }
 
     @Subscriber(tag = Order.ORDER_INITIALIZE)
     private void OrderInitilize(ArrayList<Order> orderArrayList) {
-        orderDetails.clear();
-        for(int i = 0; i< orderArrayList.size(); i++) {
-            if(orderArrayList.get(i).getOrderDetails() != null){
-                OrderDetails orderDetails_ = new OrderDetails();
-                HashMap<String, Map<String, String>> prescription = new HashMap<>();
-                orderArrayList.get(i).getOrderDetails().get(0).getPrescription();
-                if(orderArrayList.get(i).getOrderDetails().get(0).getPrescription().size() != 0){
-                    orderDetails_.setPrescription(orderArrayList.get(i).getOrderDetails().get(0).getPrescription());
-                }
-                if(orderArrayList.get(i).getOrderDetails().get(0).getDrugList().size() != 0){
-                    orderDetails_.setDrugList(orderArrayList.get(i).getOrderDetails().get(0).getDrugList());
-                }
-                if(orderArrayList.get(i).getOrderDetails().get(0).getDoctorName() != null){
-                    orderDetails_.setDoctorName(orderArrayList.get(i).getOrderDetails().get(0).getDoctorName());
-                }
-                if(orderArrayList.get(i).getOrderDetails().get(0).getClinicName() != null){
-                    orderDetails_.setClinicName(orderArrayList.get(i).getOrderDetails().get(0).getClinicName());
-                }
-                if(String.valueOf(orderArrayList.get(i).getOrderDetails().get(0).getStatus()) != null){
-                    orderDetails_.setStatus(orderArrayList.get(i).getOrderDetails().get(0).getStatus());
-                }
-                if(orderArrayList.get(i).getOrderDetails().get(0).getExpirationDate() != null){
-                    orderDetails_.setExpirationDate(orderArrayList.get(i).getOrderDetails().get(0).getExpirationDate());
-                }
-
-                orderDetails.add(orderDetails_);
-
-            }
-
-
-            /*orderDetails.add(new OrderDetails(orderArrayList.get(i).getOrderDetails().get(0).getPrescription(),
-                    orderArrayList.get(i).getOrderDetails().get(0).getDrugList(),
-                    orderArrayList.get(i).getOrderDetails().get(0).patientName,
-                    orderArrayList.get(i).getOrderDetails().get(0).doctorName,
-                    orderArrayList.get(i).getOrderDetails().get(0).doctorName,
-                    orderArrayList.get(i).getOrderDetails().get(0).expirationDate,
-                    orderArrayList.get(i).getOrderDetails().get(0).status));*/
-        }
-        orderDetailsAdapter.notifyDataSetChanged();
+        orders.clear();
+        orders  = orderArrayList;
+        orderAdapter.notifyDataSetChanged();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        orderDetailsAdapter = new OrderDetailsAdapter(mainActivity,R.layout.order_list_view_items,orderDetails);
+        orderAdapter = new OrderDetailsAdapter(mainActivity,R.layout.order_list_view_items,orders);
 
         View rootview = inflater.inflate(R.layout.fragment_order_list, container, false);
         ButterKnife.bind(this, rootview);
@@ -135,7 +99,7 @@ import butterknife.ButterKnife;
         String todaysDate = df.format(calendar.getTime());
         listHeader.setText(todaysDate);
 
-        mListView.setAdapter(orderDetailsAdapter);
+        mListView.setAdapter(orderAdapter);
         return rootview;
     }
 
@@ -181,8 +145,8 @@ import butterknife.ButterKnife;
 
     @Subscriber(tag = Constants.UPDATE_ORDER_LIST)
     public  void updateOrderList(String code) {
-        orderDetailsAdapter.updateOrderList();
-        mListView.setAdapter(orderDetailsAdapter);
+        orderAdapter.updateOrderList();
+        mListView.setAdapter(orderAdapter);
     }
 
 }

@@ -90,7 +90,7 @@ public class MedicineListDrugAdapter extends BaseExpandableListAdapter {
         notAvailable = (Button) convertView.findViewById(R.id.fragment_medicine_list_header_button1);
         available = (Button) convertView.findViewById(R.id.fragment_medicine_list_header_button2);
 
-        medicineName.setText(medicineListModel.getDrug());
+        medicineName.setText(medicineListModel.getFormName());
         composition.setText((medicineListModel.getPackingDetails()));
         quantity.setText(String.valueOf(medicineListModel.getQuantityRequired()));
         form.setText(medicineListModel.getFormName());

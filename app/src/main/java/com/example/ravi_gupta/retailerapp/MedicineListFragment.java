@@ -16,11 +16,13 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.strongloop.android.remoting.JsonUtil;
 
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -128,13 +130,18 @@ public class MedicineListFragment extends android.support.v4.app.Fragment {
 
         medicineListModelArrayList.clear();
         for(int i = 0; i < orderDetails.getDrugList().size(); i++) {
-            LinkedHashMap<String, String > salt = new LinkedHashMap<String, String>();
-            String value  = orderDetails.getDrugList().get(i).get("salt");
-            value = value.substring(1, value.length()-1);           //remove curly brackets
-            String[] keyValuePairs = value.split(",");              //split the string to creat key-value pairs
-            for(int j = 0; j< keyValuePairs.length; j++) {
-                saltStringArrayList.add(keyValuePairs[j]);
+            HashMap<String, String > salt = new HashMap<String, String>();
+
+            salt = (HashMap<String, String>)orderDetails.getDrugList().get(i).get("salt");
+
+            if(!salt.isEmpty()){
+                for(String key : salt.keySet()){
+                    String temp = key + " : " +   salt.get(key);
+                    saltStringArrayList.add(temp);
+                }
             }
+
+
 
             medicineListModelArrayList.add(
                     new MedicineListModel(
@@ -142,23 +149,23 @@ public class MedicineListFragment extends android.support.v4.app.Fragment {
                             (String) orderDetails.getDrugList().get(i).get("company"),
                             (String) orderDetails.getDrugList().get(i).get("formName"),
                             (String) orderDetails.getDrugList().get(i).get("type"),
-                            Double.parseDouble(orderDetails.getDrugList().get(i).get("price")),
-                            Integer.parseInt(orderDetails.getDrugList().get(i).get("contains")),
-                            orderDetails.getDrugList().get(i).get("packingDetails"),
+                            (Double)(orderDetails.getDrugList().get(i).get("price")),
+                            (Integer)(orderDetails.getDrugList().get(i).get("contains")),
+                            (String)orderDetails.getDrugList().get(i).get("packingDetails"),
                             saltStringArrayList,
-                            Integer.parseInt(orderDetails.getDrugList().get(i).get("quantityRequired")),
-                            orderDetails.getDrugList().get(i).get("category")));
+                            (Integer)(orderDetails.getDrugList().get(i).get("quantityRequired")),
+                            (String)orderDetails.getDrugList().get(i).get("category")));
         }
 
         toolbarTitleView.setText(orderDetails.patientName);
         toolbarDoctorName.setText("Dr. " + orderDetails.doctorName);
         toolbarDoctorAddress.setText(orderDetails.clinicName);
         Map<String, Map<String, String>> image = orderDetails.getPrescription();
-        Object object = "image";
-        /*Uri imageUri = Uri.parse(Constants.apiUrl + "/containers/" +
-                image.get(object).get("container") + "/download/" + image.get(object).get("name") );*/
+        String object = "image";
+        imageUri = Constants.apiUrl + "/containers/" +
+                image.get(object).get("container") + "/download/" + image.get(object).get("name");
 
-        imageUri = image.get(object).get("name")+""+image.get(object).get("container");
+        //imageUri = image.get(object).get("name")+""+image.get(object).get("container");
         imageLoader.displayImage(imageUri, imageView);
 
 

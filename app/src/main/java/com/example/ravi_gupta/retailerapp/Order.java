@@ -161,6 +161,7 @@ public class Order extends Model {
     }
 
     public void setOrderDetails(ArrayList<OrderDetails> orderDetails) {
+
         this.orderDetails = orderDetails;
     }
 
