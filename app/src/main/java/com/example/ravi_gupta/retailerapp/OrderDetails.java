@@ -11,16 +11,18 @@ import java.util.Map;
 public class OrderDetails {
     public String patientName;
     public String doctorName;
+
+
     public String clinicName;
     public String expirationDate;
     public int status;
-    private HashMap<String,Map> prescription =  new HashMap<String, Map>();
+    private HashMap<String, Map<String, String>> prescription =  new HashMap<String, Map<String, String>>();
     private List<HashMap<String,String>> drugList = new ArrayList<HashMap<String,String >>();
 
-    public OrderDetails(HashMap<String,Map> prescription,  List<HashMap<String,String>> drugList,
-                        String patientName ,String doctorName, String clinicName
-                        ,String expirationDate, int status
-                        )
+    public OrderDetails(HashMap<String, Map<String, String>> prescription,  List<HashMap<String,String>> drugList,
+    String patientName ,String doctorName, String clinicName
+    ,String expirationDate, int status
+    )
     {
         this.patientName = patientName;
         this.prescription = prescription;
@@ -30,12 +32,60 @@ public class OrderDetails {
         this.drugList = drugList;
         this.status = status;
     }
-    
-    public HashMap<String, Map> getPrescription() {
+
+    public OrderDetails(){
+        super();
+    }
+
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
+    public String getClinicName() {
+        return clinicName;
+    }
+
+    public void setClinicName(String clinicName) {
+        this.clinicName = clinicName;
+    }
+
+    public String getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(String expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+
+
+
+    public HashMap<String, Map<String, String>> getPrescription() {
         return prescription;
     }
 
-    public void setPrescription(HashMap<String, Map> prescription) {
+    public void setPrescription(HashMap<String, Map<String, String>> prescription) {
         this.prescription = prescription;
     }
 

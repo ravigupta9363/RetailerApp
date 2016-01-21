@@ -19,6 +19,8 @@ import org.simple.eventbus.Subscriber;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -66,13 +68,41 @@ import butterknife.ButterKnife;
     private void OrderInitilize(ArrayList<Order> orderArrayList) {
         orderDetails.clear();
         for(int i = 0; i< orderArrayList.size(); i++) {
-            orderDetails.add(new OrderDetails(orderArrayList.get(i).getOrderDetails().get(0).getPrescription(),
+            if(orderArrayList.get(i).getOrderDetails() != null){
+                OrderDetails orderDetails_ = new OrderDetails();
+                HashMap<String, Map<String, String>> prescription = new HashMap<>();
+                orderArrayList.get(i).getOrderDetails().get(0).getPrescription();
+                if(orderArrayList.get(i).getOrderDetails().get(0).getPrescription().size() != 0){
+                    orderDetails_.setPrescription(orderArrayList.get(i).getOrderDetails().get(0).getPrescription());
+                }
+                if(orderArrayList.get(i).getOrderDetails().get(0).getDrugList().size() != 0){
+                    orderDetails_.setDrugList(orderArrayList.get(i).getOrderDetails().get(0).getDrugList());
+                }
+                if(orderArrayList.get(i).getOrderDetails().get(0).getDoctorName() != null){
+                    orderDetails_.setDoctorName(orderArrayList.get(i).getOrderDetails().get(0).getDoctorName());
+                }
+                if(orderArrayList.get(i).getOrderDetails().get(0).getClinicName() != null){
+                    orderDetails_.setClinicName(orderArrayList.get(i).getOrderDetails().get(0).getClinicName());
+                }
+                if(String.valueOf(orderArrayList.get(i).getOrderDetails().get(0).getStatus()) != null){
+                    orderDetails_.setStatus(orderArrayList.get(i).getOrderDetails().get(0).getStatus());
+                }
+                if(orderArrayList.get(i).getOrderDetails().get(0).getExpirationDate() != null){
+                    orderDetails_.setExpirationDate(orderArrayList.get(i).getOrderDetails().get(0).getExpirationDate());
+                }
+
+                orderDetails.add(orderDetails_);
+
+            }
+
+
+            /*orderDetails.add(new OrderDetails(orderArrayList.get(i).getOrderDetails().get(0).getPrescription(),
                     orderArrayList.get(i).getOrderDetails().get(0).getDrugList(),
                     orderArrayList.get(i).getOrderDetails().get(0).patientName,
                     orderArrayList.get(i).getOrderDetails().get(0).doctorName,
                     orderArrayList.get(i).getOrderDetails().get(0).doctorName,
                     orderArrayList.get(i).getOrderDetails().get(0).expirationDate,
-                    orderArrayList.get(i).getOrderDetails().get(0).status));
+                    orderArrayList.get(i).getOrderDetails().get(0).status));*/
         }
         orderDetailsAdapter.notifyDataSetChanged();
     }

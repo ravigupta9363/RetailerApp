@@ -153,7 +153,7 @@ public class MedicineListFragment extends android.support.v4.app.Fragment {
         toolbarTitleView.setText(orderDetails.patientName);
         toolbarDoctorName.setText("Dr. " + orderDetails.doctorName);
         toolbarDoctorAddress.setText(orderDetails.clinicName);
-        Map<String, Map> image = orderDetails.getPrescription();
+        Map<String, Map<String, String>> image = orderDetails.getPrescription();
         Object object = "image";
         /*Uri imageUri = Uri.parse(Constants.apiUrl + "/containers/" +
                 image.get(object).get("container") + "/download/" + image.get(object).get("name") );*/

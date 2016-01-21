@@ -18,6 +18,10 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.strongloop.android.loopback.RestAdapter;
+
+import org.simple.eventbus.EventBus;
+
 
 public class MainActivity extends AppCompatActivity
         implements OnFragmentChange,RetailerConfirmationFragment.OnFragmentInteractionListener,
@@ -36,7 +40,7 @@ public class MainActivity extends AppCompatActivity
     DrawerLayout mDrawerLayout;
     int position;
     static boolean startService;
-
+    public RestAdapter adapter;
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
@@ -46,13 +50,14 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        startService(new Intent(getBaseContext(), BackgroundService.class));
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.mipmap.ic_icon_home);
         startService = false;
 
-
+        adapter = getLoopBackAdapter();
+        startService(new Intent(getBaseContext(), BackgroundService.class));
+        EventBus.getDefault().postSticky(this, Constants.SEND_MAIN_ACTIVITY_INSTANCE);
         //Changing fonts
         //FontOverride.setDefaultFont(this, "monospace", "fonts/gothic.ttf");
 
@@ -176,6 +181,15 @@ public class MainActivity extends AppCompatActivity
         if (number >= 1) {
             mTitle = stringArray[number - 1];
         }
+    }
+
+    public RestAdapter getLoopBackAdapter() {
+        if (adapter == null) {
+            adapter = new RestAdapter(
+                    getApplicationContext(),
+                    Constants.apiUrl);
+        }
+        return adapter;
     }
 
     @Override

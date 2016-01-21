@@ -1,5 +1,10 @@
 package com.example.ravi_gupta.retailerapp;
 
+import android.util.Log;
+
+import com.strongloop.android.loopback.RestAdapter;
+import com.strongloop.android.loopback.callbacks.ListCallback;
+
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
 
@@ -15,16 +20,17 @@ public class OrderCollection {
 
     ArrayList<OrderDetails> orderDetailsArrayList = new ArrayList<OrderDetails>();
     ArrayList<Order> orderArrayList = new ArrayList<Order>();
-
+    MainActivity mainActivity;
     private HashMap<String,Map> prescription =  new HashMap<String, Map>();
     Map<String, String> map = new HashMap<String, String>();
 
     private List<HashMap<String,String>> drugList = new ArrayList<HashMap<String,String>>();
     private HashMap<String,String> drugMap =  new HashMap<String, String>();
 
-    public OrderCollection() {
+    public OrderCollection(MainActivity mainActivity) {
         EventBus.getDefault().registerSticky(this);
         EventBus.getDefault().register(this);
+        this.mainActivity = mainActivity;
         initialize();
     }
 
@@ -50,18 +56,34 @@ public class OrderCollection {
         drugMap.put("packingDetails","200 mg x 150 mg x 30 mg");
         drugMap.put("quantityRequired","10");
         drugMap.put("category","Drug");
-        drugMap.put("salt","{ Paracetamol: 200 mg, Prophenazol: 150 mg,caffeine: 30 mg }");
+        drugMap.put("salt", "{ Paracetamol: 200 mg, Prophenazol: 150 mg,caffeine: 30 mg }");
 
         drugList.add(drugMap);
 
-        orderDetailsArrayList.add(new OrderDetails(prescription, drugList, "Shyam Sharma", "Shyam", "DLF Phase 3", "24 June 2016", 1));
-        orderArrayList.add(new Order("1","26 June 2016","1","1",orderDetailsArrayList));
-        orderArrayList.add(new Order("2","26 June 2016","1","1",orderDetailsArrayList));
-        orderArrayList.add(new Order("3","26 June 2016","1","1",orderDetailsArrayList));
-        orderArrayList.add(new Order("4","26 June 2016","1","1",orderDetailsArrayList));
-        orderArrayList.add(new Order("5","26 June 2016","1","1",orderDetailsArrayList));
+//        orderDetailsArrayList.add(new OrderDetails(prescription, drugList, "Shyam Sharma", "Shyam", "DLF Phase 3", "24 June 2016", 1));
+//        orderArrayList.add(new Order("1","26 June 2016","1","1",orderDetailsArrayList));
+//        orderArrayList.add(new Order("2","26 June 2016","1","1",orderDetailsArrayList));
+//        orderArrayList.add(new Order("3","26 June 2016","1","1",orderDetailsArrayList));
+//        orderArrayList.add(new Order("4","26 June 2016","1","1",orderDetailsArrayList));
+//        orderArrayList.add(new Order("5","26 June 2016","1","1",orderDetailsArrayList));
 
-        EventBus.getDefault().postSticky(orderArrayList, Order.ORDER_INITIALIZE);
+        RestAdapter adapter = mainActivity.adapter;
+        OrderRepository repository = adapter.createRepository(OrderRepository.class);
+        repository.getOrder("55bbb7874f9f1ec35c13472e", new ListCallback<Order>() {
+            @Override
+            public void onSuccess(List<Order> objects) {
+                Log.d("Log", "" + objects);
+                orderArrayList = (ArrayList) objects;
+                EventBus.getDefault().postSticky(orderArrayList, Order.ORDER_INITIALIZE);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                Log.e("Log", t + "");
+            }
+        });
+
+
 
     }
 

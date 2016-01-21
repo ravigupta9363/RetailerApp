@@ -28,7 +28,8 @@ dependencies {
     compile 'org.simple:androideventbus:1.0.5'
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-
+    compile 'com.strongloop:loopback-sdk-android:1.5.+'
+    compile "com.google.android.gms:play-services:7.0.+"
 
 
 }

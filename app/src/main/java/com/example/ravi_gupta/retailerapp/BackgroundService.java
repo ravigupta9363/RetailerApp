@@ -5,10 +5,15 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
+
 /**
  * Created by Ravi-Gupta on 1/20/2016.
  */
 public class BackgroundService extends Service {
+
+    MainActivity mainActivity;
 
     @Nullable
     @Override
@@ -26,8 +31,15 @@ public class BackgroundService extends Service {
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        orderCollection = new OrderCollection();
+        EventBus.getDefault().registerSticky(this);
+        EventBus.getDefault().register(this);
         return START_STICKY;
+    }
+
+    @Subscriber ( tag = Constants.SEND_MAIN_ACTIVITY_INSTANCE)
+    private void takeMainActivityInstance(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
+        orderCollection = new OrderCollection(mainActivity);
     }
 
     /**
