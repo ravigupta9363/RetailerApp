@@ -54,6 +54,7 @@ public class MedicineListFragment extends android.support.v4.app.Fragment {
     @Bind(R.id.fragment_medicine_list_imageview) ImageView imageView;
     ImageLoader imageLoader;
     String imageUri;
+    Order order;
     private OnFragmentInteractionListener mListener;
 
     public static MedicineListFragment newInstance() {
@@ -91,6 +92,11 @@ public class MedicineListFragment extends android.support.v4.app.Fragment {
         showDialog();
     }
 
+    @Subscriber(tag = Constants.SEND_ORDER_CONFIRM_BUTTON)
+    private void ReciveOrder( Order order) {
+        this.order = order;
+    }
+
     public void showDialog(){
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mainActivity);
         alertDialogBuilder.setMessage("Confirm the Order?");
@@ -98,7 +104,7 @@ public class MedicineListFragment extends android.support.v4.app.Fragment {
         alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
-                EventBus.getDefault().post("2",Constants.NOTIFY_ORDER_CONFIRMATION_ON_SERVER);
+                EventBus.getDefault().post(order,Constants.NOTIFY_ORDER_CONFIRMATION_ON_SERVER);
                 mainActivity.onBackPressed();
                 arg0.dismiss();
             }

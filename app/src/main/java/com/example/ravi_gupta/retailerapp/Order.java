@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class Order extends Model {
 
-    private String id;
+    //private int id;
     private String date;
     private String googleAddr;
     private String landmark;
@@ -139,13 +139,13 @@ public class Order extends Model {
 
 
 
-    public String getId() {
+    /*public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
-    }
+    }*/
 
 
     public String getDate() {

@@ -12,9 +12,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Created by Ravi-Gupta on 6/6/2015.
@@ -25,25 +27,29 @@ public class OrderDetailsAdapter extends ArrayAdapter<Order>{
     MainActivity mainActivity;
     int resource;
     private OnFragmentChange callback1;
-    int orderListPosition;
+    ArrayList<Order> orderArrayList = new ArrayList<Order>();
+    ListIterator<Order> listIterator;
 
-    private OrderListFragment.OnFragmentInteractionListener callback2;
-    ArrayList<Order> order = new ArrayList<Order>();
-
-    public OrderDetailsAdapter(MainActivity mainActivity, int resource, ArrayList<Order> order) {
-        super(mainActivity, resource, order);
+    public OrderDetailsAdapter(MainActivity mainActivity, int resource, ArrayList<Order> orderArrayList) {
+        super(mainActivity, resource, orderArrayList);
         this.mainActivity = mainActivity;
         this.context = (Context) mainActivity;
         callback1 = (OnFragmentChange)context;
-        callback2 = (OrderListFragment.OnFragmentInteractionListener) context;
+        this.orderArrayList = orderArrayList;
         this.resource = resource;
-        this.order = order;
+        EventBus.getDefault().register(this);
+        EventBus.getDefault().registerSticky(this);
+        listIterator = this.orderArrayList.listIterator();
+
     }
+
+
     @Override
     public View getView(final int position, final View convertView, ViewGroup parent) {
         View row = convertView;
         OrderHolder holder = null;
-
+        Order order1;
+        Log.d("Retailer", position + "");
 
         if(row == null)
         {
@@ -65,35 +71,45 @@ public class OrderDetailsAdapter extends ArrayAdapter<Order>{
 
             holder = (OrderHolder)row.getTag();
         }
-        final OrderDetails orderDetails1 = ((List<OrderDetails>)order.get(position).get("orderDetails")).get(0);
-        Order order = this.order.get(position);
-        holder.openOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if(listIterator.hasNext()) {
+            order1 = listIterator.next();
 
-                // callback2.onFragmentInteraction(uri);
-                EventBus.getDefault().postSticky(orderDetails1,Constants.OPEN_ORDER_DETAILS);
-                mainActivity.replaceFragment(R.id.order_list_view_open_order, null);
-                orderListPosition = position;
-            }
-        });
 
-        holder.cancelOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog(position);
+            if(order1.getOrderDetails() != null) {
+                final OrderDetails orderDetails1 = order1.getOrderDetails().get(0);
+                Order order = order1;
+                holder.openOrder.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        // callback2.onFragmentInteraction(uri);
+                        EventBus.getDefault().postSticky(orderDetails1, Constants.OPEN_ORDER_DETAILS);
+                        mainActivity.replaceFragment(R.id.order_list_view_open_order, null);
+
+                    }
+                });
+
+                holder.cancelOrder.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showDialog(position);
+                    }
+                });
+                String medicineList = "";
+                if (!orderDetails1.getDrugList().isEmpty()) {
+                    medicineList = (String) orderDetails1.getDrugList().get(0).get("formName");
+                }
+                holder.patientName.setText(orderDetails1.patientName);
+                String orderIdValue = String.valueOf(order.getId());
+                holder.orderNumber.setText(orderIdValue);
+                EventBus.getDefault().postSticky(order, Constants.SEND_ORDER_CONFIRM_BUTTON);
+                for (int i = 1; i < orderDetails1.getDrugList().size(); i++) {
+                    medicineList = medicineList + ", " + orderDetails1.getDrugList().get(i).get("formName");
+                }
+                holder.medicineList.setText(medicineList);
             }
-        });
-        String medicineList = "";
-        if(!orderDetails1.getDrugList().isEmpty()){
-            medicineList = (String)orderDetails1.getDrugList().get(0).get("drug");
         }
-        holder.patientName.setText(orderDetails1.patientName);
-        holder.orderNumber.setText(String.valueOf(order.getId()));
-        for(int i = 1; i<orderDetails1.getDrugList().size(); i++) {
-            medicineList = medicineList + ", " +orderDetails1.getDrugList().get(i).get("drug");
-        }
-        holder.medicineList.setText(medicineList);
+
         return row;
     }
 
@@ -104,8 +120,7 @@ public class OrderDetailsAdapter extends ArrayAdapter<Order>{
         alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
-                order.remove(order.get(position));
-                notifyDataSetChanged();
+                EventBus.getDefault().post(orderArrayList.get(position), Constants.CANCEL_ORDER_BUTTON);
                 arg0.dismiss();
             }
         });
@@ -121,6 +136,12 @@ public class OrderDetailsAdapter extends ArrayAdapter<Order>{
         alertDialog.show();
     }
 
+    @Subscriber( tag = Constants.CANCEL_ORDER_BUTTON)
+    private void removeList(Order order) {
+        orderArrayList.remove(order);
+        notifyDataSetChanged();
+    }
+
 
 
     static class OrderHolder {
@@ -133,9 +154,9 @@ public class OrderDetailsAdapter extends ArrayAdapter<Order>{
         Button cancelOrder;
     }
 
-    public void updateOrderList() {
+    public void updateOrderList(Order order) {
         Log.v("dialog","OrderAdapter");
-        order.remove(order.get(orderListPosition));
+        orderArrayList.remove(order);
         notifyDataSetChanged();
     }
 }

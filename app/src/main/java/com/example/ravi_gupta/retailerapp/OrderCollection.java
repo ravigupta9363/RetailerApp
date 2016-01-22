@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.strongloop.android.loopback.RestAdapter;
 import com.strongloop.android.loopback.callbacks.ListCallback;
+import com.strongloop.android.loopback.callbacks.VoidCallback;
 
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
@@ -81,9 +82,48 @@ public class OrderCollection {
     }
 
     @Subscriber( tag = Constants.NOTIFY_ORDER_CONFIRMATION_ON_SERVER )
-    public void sendOrderDetailsOnServer(String orderId) {
+    public void sendOrderDetailsOnServer(Order order) {
+        //Change the order status and inform delivery boy..
+        order.setPrototypeStatusCode("5002");
+        order.setStatus("Pickup");
+        order.save(new VoidCallback() {
+            @Override
+            public void onSuccess() {
+                // Order now exists on the server!
+                Log.d("Retailer", "Data saved at server");
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                // Order failed, handle the error
+                Log.e("Retailer", "Error saving data at server");
+                Log.e("Retailer", t + "");
+            }
+        });
         //TODO Send to server
-        EventBus.getDefault().post(orderId, Constants.UPDATE_ORDER_LIST);
+        EventBus.getDefault().post(order, Constants.UPDATE_ORDER_LIST);
+    }
+
+    @Subscriber ( tag = Constants.CANCEL_ORDER_BUTTON)
+    public void cancelOrder(Order order) {
+        order.setPrototypeStatusCode("5004");
+        order.setStatus("Cancelled");
+        order.save(new VoidCallback() {
+            @Override
+            public void onSuccess() {
+                // Order now exists on the server!
+                Log.d("Retailer", "Data Cancelled at server");
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                // Order failed, handle the error
+                Log.e("Retailer", "Error cancelling data at server");
+                Log.e("Retailer", t + "");
+            }
+        });
+
+        EventBus.getDefault().post(order, Constants.CANCEL_ORDER_BUTTON_FROM_LIST);
     }
 
 }

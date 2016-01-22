@@ -39,7 +39,7 @@ import butterknife.ButterKnife;
     public static String TAG = "OrderListFragment";
     MainActivity mainActivity;
     OrderDetailsAdapter orderAdapter;
-    ArrayList<Order> orders;
+    ArrayList<Order> orders = new ArrayList<Order>();
     @Bind(R.id.fragment_order_listview) ListView mListView;
     @Bind(R.id.fragment_order_list_imagebutton1) ImageButton menuButton;
     @Bind(R.id.fragment_order_list_textview1) TextView toolbarTextview;
@@ -61,13 +61,15 @@ import butterknife.ButterKnife;
         super.onCreate(savedInstanceState);
         EventBus.getDefault().registerSticky(this);
         EventBus.getDefault().register(this);
-        orders = new ArrayList<Order>();
+
     }
 
     @Subscriber(tag = Order.ORDER_INITIALIZE)
     private void OrderInitilize(ArrayList<Order> orderArrayList) {
         orders.clear();
         orders  = orderArrayList;
+        orderAdapter = new OrderDetailsAdapter(mainActivity,R.layout.order_list_view_items,orders);
+        mListView.setAdapter(orderAdapter);
         orderAdapter.notifyDataSetChanged();
     }
 
@@ -75,7 +77,7 @@ import butterknife.ButterKnife;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        orderAdapter = new OrderDetailsAdapter(mainActivity,R.layout.order_list_view_items,orders);
+
 
         View rootview = inflater.inflate(R.layout.fragment_order_list, container, false);
         ButterKnife.bind(this, rootview);
@@ -98,8 +100,6 @@ import butterknife.ButterKnife;
         SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy");
         String todaysDate = df.format(calendar.getTime());
         listHeader.setText(todaysDate);
-
-        mListView.setAdapter(orderAdapter);
         return rootview;
     }
 
@@ -144,9 +144,9 @@ import butterknife.ButterKnife;
     }
 
     @Subscriber(tag = Constants.UPDATE_ORDER_LIST)
-    public  void updateOrderList(String code) {
-        orderAdapter.updateOrderList();
-        mListView.setAdapter(orderAdapter);
+    public  void updateOrderList(Order order) {
+        orderAdapter.updateOrderList(order);
+        orderAdapter.notifyDataSetChanged();
     }
 
 }
